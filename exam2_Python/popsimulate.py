@@ -1,18 +1,23 @@
+import numpy as np
 #_________________ Función 1
 def build_population(N, p):
+    """La población está formada por N individuos.
+Cada individuo tiene dos cromosomas, que contienen alelo "A" o "a", con probabilidad p o 1-p, respectivamente.
+La población es una lista."""
     population = []
     for i in range(N):
         allele1 = "A"
-        if scipy.random.rand() > p:
+        if np.random.rand() > p:
             allele1 = "a"
         allele2 = "A"
-        if scipy.random.rand() > p:
+        if np.random.rand() > p:
             allele2 = "a"
         population.append((allele1, allele2))
     return population
 
 #_________________ Función 2
 def compute_frequencies(population):
+    """Contar los genotipos y devuelve un diccionario de frecuencia genotipicas """
     AA = population.count(("A", "A"))
     Aa = population.count(("A", "a"))
     aA = population.count(("a", "A"))
@@ -21,6 +26,9 @@ def compute_frequencies(population):
 
 #_________________ Función 3
 def reproduce_population(population):
+    """Crear nueva generación a través de la reproducción para cada uno de N nuevos descendientes:
+- elegir a los padres al azar
+- la descendencia recibe un cromosoma de cada uno de los padres."""
     new_generation = []
     N = len(population)
     for i in range(N):
@@ -33,6 +41,12 @@ def reproduce_population(population):
 
 #_________________ Función 4
 def simulate_drift(N, p):
+    """Esta funcion abarca todas las funciones anteriores:
+- Construye una lista de la población
+- Devuelve las frecuencias genotipicas
+- Si el numero de AA y aa genotipipos es igual a la cantidad de los indivuduos los allelos alcanzan una fijación en la generación
+- imprime el conteo de los genotipos
+- devuelve el numero de generaciones y el conteo de genotipos"""
     my_pop = build_population(N, p)
     fixation = False
     num_generations = 0
